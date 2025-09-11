@@ -14,7 +14,7 @@ class UsuarioController
 
     public function listar()
     {
-        $sql = "SELECT id_usuario, nm_usuario, s_email FROM tb_usuario";
+        $sql = "SELECT *  FROM tb_usuario";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -23,9 +23,10 @@ class UsuarioController
     public function criar($usuario)
     {
         try {
-            $sql = "INSERT INTO tb_usuario (s_nome, s_email, s_senha) 
-                VALUES (:nome, :email, :senha)";
+            $sql = "INSERT INTO tb_usuario (id_usuario, s_nome, s_email, s_senha) 
+                VALUES (:id, :nome, :email, :senha)";
             $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(":id", $usuario->id_usuario);
             $stmt->bindParam(":nome", $usuario->nm_usuario);
             $stmt->bindParam(":email", $usuario->email_usuario);
             $stmt->bindParam(":senha", $usuario->pwd_usuario);
