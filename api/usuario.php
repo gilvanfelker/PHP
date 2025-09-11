@@ -20,8 +20,8 @@ switch ($method) {
 
     case 'POST':
         $dados = json_decode(file_get_contents("php://input"));
-        if (isset($dados->nm_usuario) && isset($dados->email_usuario) && isset($dados->pwd_usuario)) {
-            $usuario = new Usuario(null, $dados->nm_usuario, $dados->email_usuario, $dados->pwd_usuario);
+        if (isset($dados->id_usuario) && isset($dados->nm_usuario) && isset($dados->email_usuario) && isset($dados->pwd_usuario)) {
+            $usuario = new Usuario($dados->id_usuario, $dados->nm_usuario, $dados->email_usuario, $dados->pwd_usuario);
             $sucesso = $controller->criar($usuario);
             if ($sucesso) {
                 http_response_code(201); // Created
